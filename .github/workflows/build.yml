@@ -1,8 +1,6 @@
 name: Lambdatest cypress integration
 
-on:
-  pull_request:
-    branches: [develop]
+on: workflow_dispatch
 
 jobs:
   build:
@@ -25,3 +23,6 @@ jobs:
       - run: npm ci
       - run: npm install -g lambdatest-cypress-cli
       - run: lambdatest-cypress run --s ./cypress/integration/3-custom/test.spec.js
+        env:
+          LT_USERNAME: ${{secrets.LT_USERNAME}}
+          LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
