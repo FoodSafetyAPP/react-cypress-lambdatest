@@ -5,3 +5,9 @@ describe('demo app', () => {
     cy.visit('https://www.cypress.io/');
   });
 });
+
+describe('demo app1', () => {
+  it('visit url', () => {
+    cy.visit('https://www.cypress.io/');
+  });
+});
