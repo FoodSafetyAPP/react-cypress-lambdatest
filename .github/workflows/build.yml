@@ -1,6 +1,8 @@
 name: Lambdatest cypress integration
 
-on: workflow_dispatch
+on:
+pull_request:
+  branches: [main]
 
 jobs:
   build:
@@ -8,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 17.x]
+        node-version: [17.x]
 
     steps:
       - name: Checkout
