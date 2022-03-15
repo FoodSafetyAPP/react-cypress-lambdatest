@@ -2,13 +2,12 @@ name: Github action cypress integration
 on: push
 
 jobs:
-  firefox:
-    runs-on: macos-latest
-    container:
-      image: cypress/browsers:node12.16.1-chrome80-ff73
-      options: --user 1001
+  cypress-run:
+    runs-on: ubuntu-20.04
+    # let's make sure our tests pass on Chrome browser
+    name: E2E on Chrome
     steps:
       - uses: actions/checkout@v2
       - uses: cypress-io/github-action@v2
         with:
-          browser: firefox
+          browser: chrome
