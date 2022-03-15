@@ -25,6 +25,7 @@ jobs:
           tag: node-${{ matrix.node }}
           parallel: true
           group: 'e2e testing group'
+          start: npm start
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
