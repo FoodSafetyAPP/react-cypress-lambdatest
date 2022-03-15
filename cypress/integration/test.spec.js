@@ -2,7 +2,6 @@
 
 describe('visit cypress', () => {
   it('visit url', () => {
-    cy.visit('http://localhost:3000/');
-    cy.get('.App-link').click();
+    cy.visit('http://localhost:3000');
   });
 });
