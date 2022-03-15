@@ -2,17 +2,39 @@ name: Github action cypress integration
 on: push
 
 jobs:
-  cypress-test:
+  cypress-run:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node: [17]
+    name: E2E on Node v${{ matrix.node }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node -v
 
-      - name: Cypress.io
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
+      - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
           record: true
+          tag: node-${{ matrix.node }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
