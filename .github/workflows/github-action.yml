@@ -13,6 +13,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
+          parallel: true
+          group: 'e2e testing group'
       - run: node -v
 
       - name: Checkout
