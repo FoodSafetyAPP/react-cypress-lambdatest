@@ -1,7 +1,10 @@
 name: Github action cypress integration
 on:
   pull_request:
-    branches: [main]
+    types:
+      - opened
+    branches:
+      - 'main'
 
 jobs:
   cypress-run:
