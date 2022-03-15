@@ -18,7 +18,17 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "cypress:open": "cypress open",
-    "lambdatest-cypress:run": "lambdatest-cypress run --s ./cypress/integration/3-custom/test.spec.js"
+    "cy:run": "cypress run",
+    "cy:verify": "cypress verify",
+    "cy:info": "cypress info",
+    "cy:version": "cypress version",
+    "cy:cache:list": "cypress cache list",
+    "e2e:chrome": "cypress run --browser chrome",
+    "e2e:record": "cypress run --record",
+    "e2e:record:chrome": "cypress run --record --browser chrome",
+    "e2e:record:edge": "cypress run --record --browser edge",
+    "e2e:record:firefox": "cypress run --record --browser firefox",
+    "lambdatest-cypress:run": "lambdatest-cypress run --s ./cypress/integration/*.spec.js"
   },
   "eslintConfig": {
     "extends": [
@@ -28,6 +38,10 @@
       "plugin:react/jsx-runtime"
     ],
     "rules": {
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
       "arrow-parens": [
         "error",
         "as-needed"
@@ -56,7 +70,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^9.5.0",
+    "cypress": "^9.5.2",
     "eslint-config-airbnb": "^19.0.4",
     "prettier": "^2.5.1"
   }

@@ -1,6 +1,8 @@
 name: Lambdatest cypress integration
 
-on: workflow_dispatch
+on:
+  pull_request:
+    branches: [testing]
 
 jobs:
   build:
@@ -8,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 17.x]
+        node-version: [17.x]
 
     steps:
       - name: Checkout
@@ -18,11 +20,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
+          cache: 'npm'
 
       - run: npm ci
       - run: npm install -g lambdatest-cypress-cli
-      - run: lambdatest-cypress run --s ./cypress/integration/3-custom/test.spec.js
+      - run: lambdatest-cypress run --s ./cypress/integration/*.spec.js
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
