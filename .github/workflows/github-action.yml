@@ -31,6 +31,7 @@ jobs:
     strategy:
       matrix:
         node: [14, 16]
+        browser: [chrome]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -46,6 +47,8 @@ jobs:
         with:
           record: true
           browser: chrome
+          tag: node-${{ matrix.node }}-${{ matrix.browser }}
+          group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
           wait-on: 'http://localhost:3000'
         env:
@@ -55,7 +58,7 @@ jobs:
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
 
   cypress-run-electron:
-    needs: [cypress-run-chrome]
+    needs: [install]
     name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
@@ -76,6 +79,8 @@ jobs:
         with:
           record: true
           browser: electron
+          tag: node-${{ matrix.node }}-${{ matrix.browser }}
+          group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
           wait-on: 'http://localhost:3000'
         env:
