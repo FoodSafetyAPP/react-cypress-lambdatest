@@ -1,48 +1,53 @@
-name: separate
-on: [push]
-# this workflow has two jobs
-# 1. the "install-job" installs everything and saves the build
-# web application as an upload artifact
-# 2. the "test-job" downloads the build site and runs tests
+name: Github action cypress integration
+on: push
+
 jobs:
-  install-job:
-    runs-on: ubuntu-20.04
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      # only install the dependencies without running any tests
-      - name: Cypress run
+
+      - name: Cypress install
         uses: cypress-io/github-action@v2
         with:
           runTests: false
-      - run: npm run build
-      # only upload the local folders we built / updated
-      #   ./public
-      # TIP: we want to avoid uploading node_modules since it is SLOW
-      # https://glebbahmutov.com/blog/parallel-cypress-tests-gh-action/
-      - name: Save built folders 🆙
-        uses: actions/upload-artifact@v2
-        with:
-          name: built
-          path: |
-            public
+      - run: |
+          $(npm bin)/cypress cache path
+          $(npm bin)/cypress cache list
+          $(npm bin)/cypress verify
 
-  test-job:
-    runs-on: ubuntu-20.04
-    needs: install-job
+  cypress-run:
+    needs: [install]
+    name: E2E on Node v${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node -v
+
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Download built folders ⏬
-        uses: actions/download-artifact@v2
-        with:
-          name: built
-
-      # install dependencies and run the tests
-      - name: Cypress run
+      - name: Cypress run firefox
         uses: cypress-io/github-action@v2
         with:
-          command: npm run expect -- --env lastName=Smith
+          record: true
+          browser: firefox
+          tag: node-${{ matrix.node }}
+          start: npm start
+          group: Node v${{ matrix.node }}
+          wait-on: 'http://localhost:3000'
         env:
-          CYPRESS_firstName: Joe
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
