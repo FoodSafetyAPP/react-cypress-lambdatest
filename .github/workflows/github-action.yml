@@ -48,6 +48,7 @@ jobs:
           browser: chrome
           tag: node-${{ matrix.node }}
           start: npm start
+          group: Node v${{ matrix.node }}
           wait-on: 'http://localhost:3000'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
