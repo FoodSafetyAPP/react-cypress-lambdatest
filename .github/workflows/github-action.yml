@@ -31,6 +31,7 @@ jobs:
       matrix:
         node: [14, 16]
         browser: [chrome]
+        machines: [1, 2]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -45,6 +46,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: true
+          parallel: true
+          headless: true
           browser: chrome
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
@@ -55,6 +58,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
 
+      - uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: screenshots
+          path: cypress/screenshots
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: videos
+          path: cypress/videos
+
   cypress-run-electron:
     needs: [install]
     name: E2E on Node v${{ matrix.node }}
@@ -63,6 +77,7 @@ jobs:
       matrix:
         node: [14, 16]
         browser: [electron]
+        machines: [1, 2]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -77,6 +92,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: true
+          parallel: true
+          headless: true
           browser: electron
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
@@ -87,6 +104,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
 
+      - uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: screenshots
+          path: cypress/screenshots
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: videos
+          path: cypress/videos
+
   cypress-run-firefox:
     needs: [install]
     name: E2E on Node v${{ matrix.node }}
@@ -95,6 +123,7 @@ jobs:
       matrix:
         node: [14, 16]
         browser: [firefox]
+        machines: [1, 2]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -109,6 +138,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: true
+          parallel: true
+          headless: true
           browser: firefox
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
@@ -118,3 +149,14 @@ jobs:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
+
+      - uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: screenshots
+          path: cypress/screenshots
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: videos
+          path: cypress/videos
