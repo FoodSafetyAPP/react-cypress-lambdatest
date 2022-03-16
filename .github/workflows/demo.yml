@@ -43,7 +43,6 @@ jobs:
           record: true
           browser: chrome
           start: npm start
-          group: Node v${{ matrix.node }} ${{ github.run_id }}
           wait-on: 'http://localhost:3000'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -74,7 +73,6 @@ jobs:
           record: true
           browser: electron
           start: npm start
-          group: Node v${{ matrix.node }} ${{ github.run_id }}
           wait-on: 'http://localhost:3000'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
