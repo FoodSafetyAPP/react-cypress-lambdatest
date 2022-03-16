@@ -18,20 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cypress run chrome
-        uses: cypress-io/github-action@v2
-        with:
-          record: true
-          browser: chrome
-          start: npm start
-          group: Node v${{ matrix.node }}
-          wait-on: 'http://localhost:3000'
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
-
       - name: Cypress run Firefox
         uses: cypress-io/github-action@v2
         with:
