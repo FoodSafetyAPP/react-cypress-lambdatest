@@ -1,7 +1,7 @@
 name: Github action cypress integration
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened]
     branches:
       - 'develop'
 jobs:
