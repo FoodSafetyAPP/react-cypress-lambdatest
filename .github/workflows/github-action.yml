@@ -4,7 +4,9 @@ on: push
 jobs:
   install:
     runs-on: ubuntu-latest
-    container: cypress/base:17.3.0
+    strategy:
+      matrix:
+        node: [14, 16]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -20,6 +22,7 @@ jobs:
 
   cypress-run:
     needs: [install]
+    name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
