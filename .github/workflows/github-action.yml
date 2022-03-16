@@ -6,11 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [17]
+        node: [14, 16]
     name: E2E on Node v${{ matrix.node }}
     steps:
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
       - run: node -v
@@ -25,7 +25,7 @@ jobs:
           browser: chrome
           tag: node-${{ matrix.node }}
           parallel: true
-          group: 'e2e testing group'
+          group: 'E2E cases'
           start: npm start
           wait-on: 'http://localhost:3000'
         env:
