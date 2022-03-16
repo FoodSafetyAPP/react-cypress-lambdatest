@@ -31,11 +31,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
 
-      - name: Cypress run Firefox
+      - name: Cypress run electron
         uses: cypress-io/github-action@v2
         with:
           record: true
-          browser: firefox
+          browser: electron
           start: npm start
           wait-on: 'http://localhost:3000'
         env:
