@@ -47,7 +47,6 @@ jobs:
         with:
           record: true
           browser: chrome
-          tag: node-${{ matrix.node }}-${{ matrix.browser }}
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
           wait-on: 'http://localhost:3000'
@@ -80,7 +79,6 @@ jobs:
         with:
           record: true
           browser: electron
-          tag: node-${{ matrix.node }}-${{ matrix.browser }}
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
           wait-on: 'http://localhost:3000'
