@@ -28,10 +28,11 @@ jobs:
     name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node: [14, 16]
         browser: [chrome]
-        machines: [1, 2]
+        machines: [1, 2, 3, 4]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -74,10 +75,11 @@ jobs:
     name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node: [14, 16]
         browser: [electron]
-        machines: [1, 2]
+        machines: [1, 2, 3, 4]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -120,10 +122,11 @@ jobs:
     name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node: [14, 16]
         browser: [firefox]
-        machines: [1, 2]
+        machines: [1, 2, 3, 4]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
