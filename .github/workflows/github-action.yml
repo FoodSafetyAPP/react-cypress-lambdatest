@@ -23,7 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14, 17]
+    name: E2E on Node v${{ matrix.node }}
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
