@@ -47,7 +47,6 @@ jobs:
           record: true
           browser: chrome
           tag: node-${{ matrix.node }}
-          group: 'E2E cases'
           start: npm start
           wait-on: 'http://localhost:3000'
         env:
