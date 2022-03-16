@@ -5,8 +5,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello test</p>
+        <img src={logo} className="App-logo" alt="logsso" />
+        <p>Hello h</p>
         <a
           className="App-link"
           href="https://reactjs.org"
