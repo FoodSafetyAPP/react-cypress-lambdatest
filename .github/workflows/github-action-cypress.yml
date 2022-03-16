@@ -1,0 +1,45 @@
+name: Github action cypress integration
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - 'develop'
+
+jobs:
+  install:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        node: [12, 14, 16]
+      fail-fast: true
+
+    name: E2E on Node v${{ matrix.node }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node -v
+
+      - name: Install dependencies
+        uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+
+      - name: Verify cache
+        run: |
+          $(npm bin)/cypress cache path
+          $(npm bin)/cypress cache list
+          $(npm bin)/cypress verify
+
+  E2E:
+    name: E2E test execute
+    needs: [install]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: aaa
+        run: echo ${{ matrix.os }}
