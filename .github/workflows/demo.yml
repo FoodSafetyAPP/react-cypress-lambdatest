@@ -1,13 +1,36 @@
 name: Github action cypress integration
-on: push
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - 'develop'
 
 jobs:
-  cypress-run:
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress install
+        uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+      - run: |
+          $(npm bin)/cypress cache path
+          $(npm bin)/cypress cache list
+          $(npm bin)/cypress verify
+
+  cypress-run-chrome:
+    needs: [install]
     name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [14, 16]
+        node: [16]
     steps:
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -18,12 +41,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cypress run electron
+      - name: Cypress run chrome
         uses: cypress-io/github-action@v2
         with:
           record: true
-          browser: electron
+          browser: chrome
           start: npm start
+          group: Node v${{ matrix.node }}
+          wait-on: 'http://localhost:3000'
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
+
+  cypress-run-electron:
+    needs: [cypress-run-chrome]
+    name: E2E on Node v${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16]
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node -v
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress run Edge
+        uses: cypress-io/github-action@v2
+        with:
+          record: true
+          browser: edge
+          start: npm start
+          group: Node v${{ matrix.node }}
           wait-on: 'http://localhost:3000'
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

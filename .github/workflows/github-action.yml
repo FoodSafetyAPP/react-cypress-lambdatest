@@ -24,7 +24,7 @@ jobs:
           $(npm bin)/cypress cache list
           $(npm bin)/cypress verify
 
-  cypress-run:
+  cypress-run-chrome:
     needs: [install]
     name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
@@ -54,6 +54,23 @@ jobs:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
+
+  cypress-run-electron:
+    needs: [cypress-run-chrome]
+    name: E2E on Node v${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [14, 16]
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node -v
+
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Cypress run Edge
         uses: cypress-io/github-action@v2
