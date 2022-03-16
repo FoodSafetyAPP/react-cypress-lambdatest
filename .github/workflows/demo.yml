@@ -32,11 +32,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
 
-      - name: Cypress run Edge
+      - name: Cypress run Firefox
         uses: cypress-io/github-action@v2
         with:
           record: true
-          browser: edge
+          browser: firefox
           start: npm start
           group: Node v${{ matrix.node }}
           wait-on: 'http://localhost:3000'
