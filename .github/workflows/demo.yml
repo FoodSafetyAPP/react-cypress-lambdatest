@@ -68,11 +68,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cypress run Edge
+      - name: Cypress run Electron
         uses: cypress-io/github-action@v2
         with:
           record: true
-          browser: edge
+          browser: electron
           start: npm start
           group: Node v${{ matrix.node }}
           wait-on: 'http://localhost:3000'
