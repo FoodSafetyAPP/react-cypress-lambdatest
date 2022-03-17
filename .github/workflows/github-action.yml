@@ -53,6 +53,7 @@ jobs:
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
           wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
@@ -69,6 +70,7 @@ jobs:
         with:
           name: videos
           path: cypress/videos
+          if-no-files-found: ignore
 
   cypress-run-electron:
     needs: [install]
@@ -100,6 +102,7 @@ jobs:
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
           wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
@@ -116,6 +119,7 @@ jobs:
         with:
           name: videos
           path: cypress/videos
+          if-no-files-found: ignore
 
   cypress-run-firefox:
     needs: [install]
@@ -147,6 +151,7 @@ jobs:
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
           wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
@@ -163,3 +168,4 @@ jobs:
         with:
           name: videos
           path: cypress/videos
+          if-no-files-found: ignore
