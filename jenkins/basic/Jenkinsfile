@@ -1,9 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/included:8.4.0'
-    }
-  }
+  agent any
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
@@ -14,9 +10,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh '$(npm bin)/cypress cache list'
-        sh '$(npm bin)/cypress verify'
+        sh 'npm ci'
       }
     }
   }
