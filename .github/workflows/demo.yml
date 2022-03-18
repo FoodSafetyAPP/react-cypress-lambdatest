@@ -6,4 +6,4 @@ jobs:
     name: E2E
     runs-on: ubuntu-latest
     steps:
-      - run: dpkg --list
+      - run: node -v
