@@ -1,0 +1,23 @@
+pipeline {
+  agent {
+    docker {
+      image 'cypress/base:16.14.0'
+    }
+  }
+
+  stages {
+    environment {
+      CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
+      CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+    }
+
+    stage('verify installation') {
+      steps {
+        sh 'npm ci'
+        sh "$(npm bin)/cypress cache path"
+        sh "$(npm bin)/cypress cache list"
+        sh "$(npm bin)/cypress verify"
+      }
+    }
+  }
+}
