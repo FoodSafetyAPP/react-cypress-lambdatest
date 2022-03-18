@@ -26,7 +26,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "npm start"
+        sh "nohup npm start &"
         sh "npm run e2e:record"
       }
     }
