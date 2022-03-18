@@ -5,23 +5,32 @@ pipeline {
     }
   }
 
+  environment {
+    CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
+    CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+    HOME = '.'
+  }
+
   stages {
-    stage('build') {
+    stage('install dependencies') {
       steps {
+        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
       }
     }
 
-    stage('cypress parallel tests') {
-      environment {
-        CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
-        CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+    stage('verify cypress') {
+      steps {
+        sh '$(npm bin)/cypress cache path'
+        sh '$(npm bin)/cypress cache list'
+        sh '$(npm bin)/cypress verify'
       }
+    }
 
+    stage('execute E2E parallel') {
       parallel {
         stage('E2E tests') {
           steps {
-            echo "Running build ${env.BUILD_ID}"
             sh "npm run e2e:record:parallel"
           }
         }
