@@ -1,9 +1,16 @@
+// issues : npm ci takes lot of time in packages installation
+
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'cypress/base:16.14.0'
+    }
+  }
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+    HOME = '.'
   }
 
   stages {
@@ -11,6 +18,7 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
+        sh '$(npm bin)/cypress install'
       }
     }
 
@@ -22,13 +30,9 @@ pipeline {
       }
     }
 
-    stage('execute E2E parallel') {
-      parallel {
-        stage('E2E tests') {
-          steps {
-            sh "npm run e2e:record:parallel"
-          }
-        }
+    stage('execute E2E') {
+      steps {
+        sh "npm run e2e:record"
       }
     }
   }

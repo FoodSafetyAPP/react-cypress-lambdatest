@@ -1,3 +1,5 @@
+// issues: start local server in background mode
+
 pipeline {
   agent any
 
@@ -19,6 +21,13 @@ pipeline {
         sh '$(npm bin)/cypress cache path'
         sh '$(npm bin)/cypress cache list'
         sh '$(npm bin)/cypress verify'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        sh "npm start"
+        sh "npm run e2e:record"
       }
     }
   }
