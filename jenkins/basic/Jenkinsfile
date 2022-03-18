@@ -14,9 +14,7 @@ pipeline {
     stage('verify installation') {
       steps {
         sh 'npm ci'
-        sh "$(npm bin)/cypress cache path"
-        sh "$(npm bin)/cypress cache list"
-        sh "$(npm bin)/cypress verify"
+        sh "npx cypress cache path"
       }
     }
   }
