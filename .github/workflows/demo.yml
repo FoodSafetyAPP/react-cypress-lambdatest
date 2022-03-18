@@ -1,9 +1,18 @@
 name: Github action cypress integration
-on: workflow_dispatch
+on: push
 
 jobs:
-  cypress-run-firefox:
-    name: E2E
+  install:
     runs-on: ubuntu-latest
     steps:
-      - run: ls /home/runner/
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cypress install
+        uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+      - run: |
+          $(npm bin)/cypress cache path
+          $(npm bin)/cypress cache list
+          $(npm bin)/cypress verify
