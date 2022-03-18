@@ -9,7 +9,6 @@ pipeline {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
     HOME = '.'
-    CYPRESS_CACHE_FOLDER: '~/.cache'
   }
 
   stages {
@@ -17,13 +16,10 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
-      }
-    }
+        sh 'npx cypress cache path'
+        sh 'npx cypress cache list'
+        sh 'npx cypress verify'
 
-    stage('E2E tests') {
-      steps {
-        echo "Running build ${env.BUILD_ID}"
-        sh "npm run e2e:record"
       }
     }
   }
