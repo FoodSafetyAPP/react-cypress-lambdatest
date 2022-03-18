@@ -1,21 +1,17 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/base:16.14.0'
-    }
-  }
+  agent any
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
-    HOME = '.'
   }
 
   stages {
     stage('install dependencies') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh '$(npm bin)/cypress install --force'
+        sh 'npm ci'
+        sh '$(npm bin)/cypress install'
       }
     }
 
@@ -24,6 +20,13 @@ pipeline {
         sh '$(npm bin)/cypress cache path'
         sh '$(npm bin)/cypress cache list'
         sh '$(npm bin)/cypress verify'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        sh "npm start"
+        sh "npm run e2e:record"
       }
     }
   }
