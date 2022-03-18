@@ -16,7 +16,13 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
-        sh 'npx  cypress cache path'
+      }
+    }
+
+    stage('E2E tests') {
+      steps {
+        echo "Running build ${env.BUILD_ID}"
+        sh "npm run e2e:record"
       }
     }
   }
