@@ -1,9 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/base:16.14.0'
-    }
-  }
+  agent any
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
@@ -12,12 +8,6 @@ pipeline {
   }
 
   stages {
-    stage('install dependencies') {
-      steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'npm ci'
-      }
-    }
 
     stage('verify cypress') {
       steps {
