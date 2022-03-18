@@ -13,7 +13,8 @@ pipeline {
   stages {
     stage('verify installation') {
       steps {
-        sh 'cat /etc/os-release'
+        sh 'npm ci'
+        sh "npx cypress cache path"
       }
     }
   }
