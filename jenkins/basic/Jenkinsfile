@@ -5,12 +5,12 @@ pipeline {
     }
   }
 
-  stages {
-    environment {
-      CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
-      CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
-    }
+  environment {
+    CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
+    CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+  }
 
+  stages {
     stage('verify installation') {
       steps {
         sh 'npm ci'
