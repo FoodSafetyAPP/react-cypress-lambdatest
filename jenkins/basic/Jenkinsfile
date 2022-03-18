@@ -13,8 +13,7 @@ pipeline {
   stages {
     stage('verify installation') {
       steps {
-        sh 'npm ci'
-        sh "npx cypress cache path"
+        sh 'cat /etc/lsb-release'
       }
     }
   }
