@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('verify installation') {
       steps {
-        sh 'cat /etc'
+        sh 'ls /etc'
       }
     }
   }
