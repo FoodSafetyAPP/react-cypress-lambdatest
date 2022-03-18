@@ -16,10 +16,6 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
-        sh 'npx cypress cache path'
-        sh 'npx cypress cache list'
-        sh 'npx cypress verify'
-
       }
     }
   }
