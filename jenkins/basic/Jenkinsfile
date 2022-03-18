@@ -15,7 +15,8 @@ pipeline {
     stage('build') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'yarn install'
+        sh '$(npm bin)/cypress cache path'
+
       }
     }
   }
