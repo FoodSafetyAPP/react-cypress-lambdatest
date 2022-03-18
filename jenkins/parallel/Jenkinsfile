@@ -6,14 +6,25 @@ pipeline {
   }
 
   stages {
-    stage('build and test') {
-      environment {
-        CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
-      }
-
+    stage('build') {
       steps {
         sh 'npm ci'
-        sh "npm run test:ci:record"
+      }
+    }
+
+    stage('cypress parallel tests') {
+      environment {
+        CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
+        CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+      }
+
+      parallel {
+        stage('E2E tests') {
+          steps {
+            echo "Running build ${env.BUILD_ID}"
+            sh "npm run e2e:record:parallel"
+          }
+        }
       }
     }
   }
