@@ -12,22 +12,7 @@ pipeline {
     stage('install dependencies') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'npm ci'
-      }
-    }
-
-    stage('verify cypress') {
-      steps {
-        sh '$(npm bin)/cypress cache path'
-        sh '$(npm bin)/cypress cache list'
-        sh '$(npm bin)/cypress verify'
-      }
-    }
-
-    stage('execute E2E') {
-      steps {
-        sh "nohup npm start &"
-        sh "npm run e2e:record"
+        sh 'ls etc'
       }
     }
   }
