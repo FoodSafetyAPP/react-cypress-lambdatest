@@ -13,4 +13,4 @@ jobs:
         with:
           runTests: false
       - run: |
-          cat /etc/os-release
+          ls /etc
