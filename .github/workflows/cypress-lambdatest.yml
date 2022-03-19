@@ -29,8 +29,7 @@ jobs:
           key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - run: npm ci
-      - run: npm install -g lambdatest-cypress-cli
-      - run: lambdatest-cypress run
+      - run: $(npm bin)/lambdatest-cypress run
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
