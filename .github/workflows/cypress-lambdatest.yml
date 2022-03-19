@@ -1,28 +1,36 @@
 name: Lambdatest cypress integration
 
-on: workflow_dispatch
+on: push
 
 jobs:
   build:
+    name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [17.x]
+        node-version: [16]
 
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node -v
+
       - name: Checkout
         uses: actions/checkout@v3.0.0
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - uses: actions/cache@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          path: |
+            ~/.npm
+            ~/.cache/Cypress
+          key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - run: npm ci
       - run: npm install -g lambdatest-cypress-cli
-      - run: lambdatest-cypress run --s ./cypress/integration/*.spec.js
+      - run: lambdatest-cypress run
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}

@@ -10,20 +10,13 @@
          "versions": [
             "latest-1"
          ]
-      },
-      {
-         "browser": "Firefox",
-         "platform": "Windows 10",
-         "versions": [
-            "latest-1"
-         ]
       }
    ],
    "run_settings": {
       "cypress_config_file": "cypress.json",
-      "build_name": "build-name",
+      "build_name": "Testing",
       "parallels": 1,
-      "specs": "./*.spec.js",
+      "specs": "./cypress/integration/*.spec.js",
       "ignore_files": "",
       "feature_file_suppport": false,
       "network": false,
