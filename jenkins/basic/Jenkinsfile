@@ -1,11 +1,7 @@
 // issues: start local server in background mode
 
 pipeline {
-  agent {
-    docker {
-      image 'cypress/base:16.14.0'
-    }
-  }
+  agent any
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
@@ -16,7 +12,22 @@ pipeline {
     stage('install dependencies') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'ls -a'
+        sh 'npm ci'
+      }
+    }
+
+    stage('verify cypress') {
+      steps {
+        sh '$(npm bin)/cypress cache path'
+        sh '$(npm bin)/cypress cache list'
+        sh '$(npm bin)/cypress verify'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        sh "nohup npm start &"
+        sh "npm run e2e:record"
       }
     }
   }
