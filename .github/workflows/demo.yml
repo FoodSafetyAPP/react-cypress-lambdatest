@@ -13,7 +13,4 @@ jobs:
         with:
           runTests: false
       - run: |
-          ls /etc
-          $(npm bin)/cypress cache path
-          $(npm bin)/cypress cache list
-          $(npm bin)/cypress verify
+          cat /etc/os-release
