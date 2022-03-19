@@ -1,7 +1,11 @@
 // issues: start local server in background mode
 
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'cypress/base:16.14.0'
+    }
+  }
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
