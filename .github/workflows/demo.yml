@@ -8,8 +8,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.npm
+          key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - run: npm ci
-      - run: |
-          $(npm bin)/cypress cache path
-          $(npm bin)/cypress cache list
-          $(npm bin)/cypress verify
