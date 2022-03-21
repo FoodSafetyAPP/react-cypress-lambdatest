@@ -28,6 +28,6 @@
    },
    "tunnel_settings": {
       "tunnel": true,
-      "tunnel_name": "f97ad27f-06d7-4ac7-bc92-aaf6712f975a"
+      "tunnel_name": null
    }
 }
