@@ -1,6 +1,6 @@
 name: Lambdatest cypress integration
 
-on: workflow_dispatch
+on: push
 
 jobs:
   build:
@@ -21,14 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.0
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            ~/.cache/Cypress
-          key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
-      - run: npm ci
       - run: npm install -g lambdatest-cypress-cli
       - run: lambdatest-cypress run
         env:
