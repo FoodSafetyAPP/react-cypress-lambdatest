@@ -14,8 +14,8 @@
    ],
    "run_settings": {
       "cypress_config_file": "cypress.json",
-      "build_name": "Testing",
-      "parallels": 1,
+      "build_name": "Testing1",
+      "parallels": 2,
       "specs": "./cypress/integration/*.spec.js",
       "ignore_files": "",
       "feature_file_suppport": false,
@@ -28,6 +28,6 @@
    },
    "tunnel_settings": {
       "tunnel": true,
-      "tunnel_name": null
+      "tunnel_name": "ankush"
    }
 }
