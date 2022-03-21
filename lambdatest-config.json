@@ -14,7 +14,7 @@
    ],
    "run_settings": {
       "cypress_config_file": "cypress.json",
-      "build_name": "Testing1",
+      "build_name": "Testing2",
       "parallels": 2,
       "specs": "./cypress/integration/*.spec.js",
       "ignore_files": "",
