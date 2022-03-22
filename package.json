@@ -17,6 +17,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
+    "start-server": "serve -s build",
+    "ci": "start-server-and-test start-server 3000 lambdatest-cypress:run",
     "cypress:open": "cypress open",
     "cy:run": "cypress run",
     "cy:verify": "cypress verify",
@@ -31,7 +33,7 @@
     "e2e:record:chrome": "cypress run --record --browser chrome",
     "e2e:record:firefox": "cypress run --record --browser firefox",
     "e2e:record:edge": "cypress run --record --browser edge",
-    "lambdatest-cypress:run": "lambdatest-cypress run --s ./cypress/integration/*.spec.js"
+    "lambdatest-cypress:run": "lambdatest-cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +77,7 @@
   "devDependencies": {
     "cypress": "^9.5.2",
     "eslint-config-airbnb": "^19.0.4",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "start-server-and-test": "^1.14.0"
   }
 }

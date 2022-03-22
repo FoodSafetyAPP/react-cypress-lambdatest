@@ -28,6 +28,6 @@
    },
    "tunnel_settings": {
       "tunnel": true,
-      "tunnel_name": "ankush"
+      "tunnel_name": null
    }
 }
