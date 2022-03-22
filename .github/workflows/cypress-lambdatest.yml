@@ -24,7 +24,6 @@ jobs:
         with:
           path: |
             ~/.npm
-            ~/.cache/Cypress
           key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - run: npm ci
