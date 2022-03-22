@@ -1,0 +1,56 @@
+pipeline {
+  agent any
+
+  environment {
+    LT_USERNAME = credentials('LT_USERNAME')
+    LT_ACCESS_KEY = credentials('LT_ACCESS_KEY')
+  }
+
+  stages {
+    stage('install dependencies') {
+      steps {
+        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        sh 'npm ci'
+      }
+    }
+
+    stage('verify cypress') {
+      steps {
+        sh '$(npm bin)/cypress cache path'
+        sh '$(npm bin)/cypress cache list'
+        sh '$(npm bin)/cypress verify'
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('start dev server') {
+      steps {
+        sh 'nohup npm run start-server &'
+      }
+    }
+
+    stage('install lambdatest cli') {
+      steps {
+        sh 'npm install -g lambdatest-cypress-cli'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        sh "npm run lambdatest-cypress:run"
+      }
+    }
+  }
+
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
+    }
+  }
+}
