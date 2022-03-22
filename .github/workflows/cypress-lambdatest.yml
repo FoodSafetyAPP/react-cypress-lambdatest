@@ -10,7 +10,7 @@ jobs:
   build:
     name: E2E on Node v${{ matrix.node }}
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
     strategy:
       matrix:
         node: [16]
@@ -33,6 +33,7 @@ jobs:
           key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - run: npm ci
+      - run: npm run build
       - run: npm install -g lambdatest-cypress-cli
       - run: npm run ci:server
         env:
