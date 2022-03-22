@@ -20,7 +20,7 @@
     "ci:jenkins": "run-p --race start-server e2e:record",
     "ci:lambdatest": "start-server-and-test start-server 3000 lambdatest-cypress:run",
     "start-server": "serve -s build",
-    "cypress:open": "cypress open",
+    "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:verify": "cypress verify",
     "cy:info": "cypress info",
