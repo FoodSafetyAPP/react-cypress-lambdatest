@@ -30,7 +30,7 @@ pipeline {
 
     stage('start dev server') {
       steps {
-        sh 'npm run start-server'
+        sh 'nohup npm run start-server &'
       }
     }
 
@@ -61,6 +61,13 @@ pipeline {
           }
         }
       }
+    }
+  }
+
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
     }
   }
 }
