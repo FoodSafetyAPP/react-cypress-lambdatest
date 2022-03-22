@@ -29,11 +29,5 @@ pipeline {
         sh '$(npm bin)/cypress verify'
       }
     }
-
-    stage('execute E2E') {
-      steps {
-        sh "npm run e2e:record"
-      }
-    }
   }
 }
