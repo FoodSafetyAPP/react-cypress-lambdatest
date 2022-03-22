@@ -29,5 +29,30 @@ pipeline {
         sh '$(npm bin)/cypress verify'
       }
     }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('start dev server') {
+      steps {
+        sh 'nohup npm run start-server &'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        sh "npm run e2e:record"
+      }
+    }
+  }
+
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
+    }
   }
 }
