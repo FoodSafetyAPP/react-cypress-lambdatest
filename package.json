@@ -18,7 +18,6 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "ci:jenkins": "run-p --race start-server e2e:record",
-    "ci:jenkins:parallel": "run-p --race start-server e2e:record:parallel",
     "ci:lambdatest": "start-server-and-test start-server 3000 lambdatest-cypress:run",
     "start-server": "serve -s build",
     "cy:open": "cypress open",
