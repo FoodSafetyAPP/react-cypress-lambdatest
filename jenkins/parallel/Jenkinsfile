@@ -42,6 +42,12 @@ pipeline {
             sh "npm run ci:jenkins:parallel"
           }
         }
+
+        stage('E2E tests C') {
+          steps {
+            sh "npm run ci:jenkins:parallel"
+          }
+        }
       }
     }
   }
