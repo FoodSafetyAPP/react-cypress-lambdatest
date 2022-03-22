@@ -18,7 +18,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "start-server": "serve -s build",
-    "ci": "start-server-and-test start-server 3000 lambdatest-cypress:run",
+    "ci:server": "start-server-and-test start-server 3000 lambdatest-cypress:run",
     "cypress:open": "cypress open",
     "cy:run": "cypress run",
     "cy:verify": "cypress verify",
