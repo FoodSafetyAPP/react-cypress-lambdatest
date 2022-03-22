@@ -1,10 +1,5 @@
 name: Lambdatest cypress integration
-
-on:
-  pull_request:
-    types: [opened, synchronize]
-    branches:
-      - 'develop'
+on: workflow_dispatch
 
 jobs:
   build:
@@ -35,7 +30,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm install -g lambdatest-cypress-cli
-      - run: npm run ci:server
+      - run: npm run ci:lambdatest
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}

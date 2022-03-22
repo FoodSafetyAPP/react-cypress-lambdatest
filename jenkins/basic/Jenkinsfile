@@ -1,5 +1,3 @@
-// issues: start local server in background mode
-
 pipeline {
   agent any
 
@@ -24,10 +22,15 @@ pipeline {
       }
     }
 
+     stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
     stage('execute E2E') {
       steps {
-        sh "nohup npm start &"
-        sh "npm run e2e:record"
+        sh "npm run ci:jenkins"
       }
     }
   }
