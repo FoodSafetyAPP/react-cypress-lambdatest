@@ -29,8 +29,15 @@ pipeline {
     }
 
     stage('execute E2E parallel') {
+      failFast true
       parallel {
-        stage('E2E tests') {
+        stage('E2E tests A') {
+          steps {
+            sh "npm run ci:jenkins:parallel"
+          }
+        }
+
+        stage('E2E tests B') {
           steps {
             sh "npm run ci:jenkins:parallel"
           }
