@@ -1,0 +1,19 @@
+/// <reference types="cypress" />
+
+describe('visit cypress', () => {
+  it('visit url', () => {
+    cy.visit('http://localhost:3000');
+  });
+});
+
+describe('visit cypress1', () => {
+  it('visit url', () => {
+    cy.visit('http://localhost:3000');
+  });
+});
+
+describe('visit cypress2', () => {
+  it('visit url', () => {
+    cy.visit('http://localhost:3000');
+  });
+});
