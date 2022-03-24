@@ -2,6 +2,6 @@
 
 describe('visit cypress', () => {
   it('visit url', () => {
-    cy.visit('http://localhost:3000');
+    cy.visit('http://localhost:4000');
   });
 });
