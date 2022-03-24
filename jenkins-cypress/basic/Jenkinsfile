@@ -11,14 +11,15 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
+        sh '$(npm bin)/cypress cache path'
+        sh '$(npm bin)/cypress cache list'
+        sh '$(npm bin)/cypress cache clear'
+        sh '$(npm bin)/cypress install'
       }
     }
 
     stage('verify cypress') {
       steps {
-        sh '$(npm bin)/cypress cache path'
-        sh '$(npm bin)/cypress cache list'
-        sh '$(npm bin)/cypress cache clear'
         sh 'DEBUG=cypress:* $(npm bin)/cypress verify'
       }
     }
