@@ -15,11 +15,6 @@ pipeline {
         sh '$(npm bin)/cypress cache list'
         sh '$(npm bin)/cypress cache clear'
         sh '$(npm bin)/cypress install'
-      }
-    }
-
-    stage('verify cypress') {
-      steps {
         sh 'DEBUG=cypress:* $(npm bin)/cypress verify'
       }
     }
