@@ -1,6 +1,7 @@
 pipeline {
   agent any
-
+  tools {nodejs "node"}
+  
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
