@@ -1,9 +1,5 @@
 name: Context testing
-on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-    branches:
-      - 'develop'
+on: workflow_dispatch
 
 jobs:
   dump_contexts_to_log:
@@ -12,5 +8,4 @@ jobs:
       - name: Dump GitHub context
         id: github_context_step
         run: |
-          echo '${{ toJSON(github) }}'
-          echo $GITHUB_REPOSITORY
+          echo ${{ toJSON(github.event_name) }}-${{ toJSON(github.head_ref) }}
