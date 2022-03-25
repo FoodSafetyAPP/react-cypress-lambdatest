@@ -1,9 +1,5 @@
 name: Github action cypress integration
-on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-    branches:
-      - 'develop'
+on: workflow_dispatch
 
 jobs:
   install:
