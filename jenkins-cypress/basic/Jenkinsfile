@@ -6,9 +6,14 @@ pipeline {
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
   }
 
+  options {
+    skipDefaultCheckout(true)
+  }
+
   stages {
     stage('install dependencies') {
       steps {
+        cleanWs()
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
       }
