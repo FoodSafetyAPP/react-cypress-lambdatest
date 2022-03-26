@@ -33,7 +33,8 @@
     "e2e:record:chrome": "cypress run --record --browser chrome",
     "e2e:record:firefox": "cypress run --record --browser firefox",
     "e2e:record:edge": "cypress run --record --browser edge",
-    "lambdatest-cypress:run": "lambdatest-cypress run --eof=true --bn=$npm_config_build_name"
+    "lambdatest-cypress:run": "lambdatest-cypress run --eof=true --bn=$npm_config_build_name",
+    "aa": "echo \"Hello $npm_config_first"
   },
   "eslintConfig": {
     "extends": [

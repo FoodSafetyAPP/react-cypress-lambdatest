@@ -9,42 +9,7 @@ pipeline {
   stages {
     stage('install dependencies') {
       steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'npm ci'
+        sh "npm run aa --first=${env.BUILD_ID}"
       }
     }
-
-    stage('verify cypress') {
-      steps {
-        sh '$(npm bin)/cypress cache path'
-        sh '$(npm bin)/cypress cache list'
-        sh '$(npm bin)/cypress verify'
-      }
-    }
-
-    stage('build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
-
-    stage('start dev server') {
-      steps {
-        sh 'nohup npm run start-server &'
-      }
-    }
-
-    stage('execute E2E') {
-      steps {
-        sh "npm run e2e:record --build_id_user=${env.BUILD_ID}"
-      }
-    }
-  }
-
-  post {
-    always {
-      echo 'Stopping local server'
-      sh 'pkill -f http-server'
-    }
-  }
 }
