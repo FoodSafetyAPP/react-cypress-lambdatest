@@ -46,7 +46,6 @@ pipeline {
     }
 
     stage('execute E2E parallel') {
-      failFast true
       parallel {
         stage('E2E tests A') {
           steps {
