@@ -2,13 +2,13 @@ pipeline {
   agent {
     docker {
       image 'cypress/base:16.14.0'
+      args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
     }
   }
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
-    HOME = '.'
   }
 
   stages {
@@ -16,7 +16,6 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
-        sh '$(npm bin)/cypress install'
       }
     }
 
