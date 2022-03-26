@@ -50,7 +50,7 @@ jobs:
           browser: chrome
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
-          wait-on: 'http://localhost:3000'
+          wait-on: 'https://google.com'
           wait-on-timeout: 120
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -100,7 +100,7 @@ jobs:
           browser: electron
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
-          wait-on: 'http://localhost:3000'
+          wait-on: 'https://google.com'
           wait-on-timeout: 120
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -150,7 +150,7 @@ jobs:
           browser: firefox
           group: browser-test-${{ matrix.node }}-${{ matrix.browser }}
           start: npm start
-          wait-on: 'http://localhost:3000'
+          wait-on: 'https://google.com'
           wait-on-timeout: 120
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

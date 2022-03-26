@@ -2,11 +2,11 @@
 
 describe('visit cypress', () => {
   it('visit url', () => {
-    cy.visit('http://localhost:3000');
+    cy.visit('https://google.com');
   });
 });
 describe('visit cypress', () => {
   it('visit url', () => {
-    cy.visit('http://localhost:3000');
+    cy.visit('https://google.com');
   });
 });
