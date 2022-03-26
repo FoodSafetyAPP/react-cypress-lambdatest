@@ -28,6 +28,12 @@ pipeline {
       }
     }
 
+    stage('start dev server') {
+      steps {
+        sh 'nohup npm run start-server &'
+      }
+    }
+
     stage('execute E2E parallel') {
       failFast true
       parallel {
@@ -42,13 +48,14 @@ pipeline {
             sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
           }
         }
-
-        stage('E2E tests C') {
-          steps {
-            sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
-          }
-        }
       }
+    }
+  }
+
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
     }
   }
 }
