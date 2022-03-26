@@ -39,7 +39,7 @@ pipeline {
       parallel {
         stage('E2E tests A') {
           steps {
-            sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.BUILD_ID}"
+            sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
           }
         }
       }
