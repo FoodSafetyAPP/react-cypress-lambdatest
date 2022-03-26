@@ -1,5 +1,3 @@
-// issues : npm ci takes lot of time in packages installation
-
 pipeline {
   agent {
     docker {
