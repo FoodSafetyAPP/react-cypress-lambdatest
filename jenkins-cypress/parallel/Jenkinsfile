@@ -35,9 +35,8 @@ pipeline {
     }
 
     stage('execute E2E parallel') {
-        steps {
-          sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
-        }
+      steps {
+        sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
       }
     }
   }
