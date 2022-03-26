@@ -1,5 +1,3 @@
-// issues : npm ci takes lot of time in packages installation
-
 pipeline {
   agent {
     docker {
@@ -9,8 +7,7 @@ pipeline {
 
   environment {
     CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
-    CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
-    HOME = '.'
+    CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY') 
   }
 
   stages {
@@ -18,7 +15,6 @@ pipeline {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
-        sh '$(npm bin)/cypress install'
       }
     }
 
