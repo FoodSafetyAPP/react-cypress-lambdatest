@@ -2,6 +2,7 @@ pipeline {
   agent {
     docker {
       image 'cypress/base:16.14.0'
+      args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
     }
   }
 
