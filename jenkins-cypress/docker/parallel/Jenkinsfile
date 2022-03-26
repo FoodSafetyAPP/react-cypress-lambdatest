@@ -13,7 +13,18 @@ pipeline {
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
   }
 
+  options {
+    skipDefaultCheckout(true)
+  }
+
   stages {
+    stage('clean workspace & checkout repo') {
+      steps {
+        cleanWs()
+        checkout scm
+      }
+    }
+
     stage('install dependencies') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
