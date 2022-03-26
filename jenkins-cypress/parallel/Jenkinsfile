@@ -35,7 +35,7 @@ pipeline {
     }
 
     stage('execute E2E parallel') {
-      failFast true
+      failFast false
       parallel {
         stage('E2E tests A') {
           steps {
@@ -44,6 +44,12 @@ pipeline {
         }
 
         stage('E2E tests B') {
+          steps {
+            sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
+          }
+        }
+
+        stage('E2E tests C') {
           steps {
             sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
           }
