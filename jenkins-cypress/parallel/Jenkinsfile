@@ -13,7 +13,7 @@ pipeline {
       parallel {
         stage('E2E tests A') {
           steps {
-            sh "npx cypress run --record --group e2e-specs-cypress-12345 --ci-build-id ${env.BUILD_ID} --parallel"
+            sh "npx cypress run --record --group e2e-specs-cypress-12345 --ci-build-id ${env.BUILD_ID}-${env.JOB_NAME} --parallel"
           }
         }
       }
