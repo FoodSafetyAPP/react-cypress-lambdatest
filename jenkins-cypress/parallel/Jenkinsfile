@@ -7,13 +7,39 @@ pipeline {
   }
 
   stages {
+    stage('install dependencies') {
+      steps {
+        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        sh 'npm ci'
+      }
+    }
+
+    stage('verify cypress') {
+      steps {
+        sh '$(npm bin)/cypress cache path'
+        sh '$(npm bin)/cypress cache list'
+        sh '$(npm bin)/cypress verify'
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('start dev server') {
+      steps {
+        sh 'nohup npm run start-server &'
+      }
+    }
 
     stage('execute E2E parallel') {
       failFast true
       parallel {
         stage('E2E tests A') {
           steps {
-            sh "npx cypress run --record --group e2e-specs-cypress-12345 --ci-build-id ${env.BUILD_ID}-${env.JOB_NAME} --parallel"
+            sh "npm run e2e:record:parallel --id=${env.BUILD_ID} --name=${env.BUILD_ID}"
           }
         }
       }
