@@ -25,7 +25,7 @@
     "cy:info": "cypress info",
     "cy:version": "cypress version",
     "cy:cache:list": "cypress cache list",
-    "e2e:record": "cypress run --record --group e2e-specs",
+    "e2e:record": "cypress run --record --group e2e-specs --ci-build-id=$npm_config_build_id",
     "e2e:record:parallel": "cypress run --record --group e2e-specs-parallel --parallel",
     "e2e:chrome": "cypress run --browser chrome",
     "e2e:firefox": "cypress run --browser firefox",
