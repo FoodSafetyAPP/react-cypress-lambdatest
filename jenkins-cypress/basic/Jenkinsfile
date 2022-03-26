@@ -36,7 +36,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "npm run e2e:record --build_id=$BUILD_ID"
+        sh "npm run e2e:record --build_id_user=${env.BUILD_ID}"
       }
     }
   }
