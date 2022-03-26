@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('install dependencies') {
       steps {
-        sh "npm run aa --first=${env.BUILD_ID}"
+        sh "npm run e2e:record --first=${env.BUILD_ID}"
       }
     }
   }
