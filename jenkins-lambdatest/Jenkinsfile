@@ -7,42 +7,11 @@ pipeline {
   }
 
   stages {
-    stage('install dependencies') {
-      steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'npm ci'
-      }
-    }
-
-    stage('build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
-
-    stage('start dev server') {
-      steps {
-        sh 'nohup npm run start-server &'
-      }
-    }
-
-    stage('install lambdatest cli') {
-      steps {
-        sh 'npm install -g lambdatest-cypress-cli'
-      }
-    }
 
     stage('execute E2E') {
       steps {
         sh "echo npm run ci:lambdatest --build_name=${env.BUILD_ID}"
       }
-    }
-  }
-
-  post {
-    always {
-      echo 'Stopping local server'
-      sh 'pkill -f http-server'
     }
   }
 }
