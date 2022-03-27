@@ -28,7 +28,7 @@ pipeline {
 
     stage('install lambdatest cli') {
       steps {
-        sh 'sudo npm install -g lambdatest-cypress-cli'
+        sh 'npm install -g lambdatest-cypress-cli'
       }
     }
 
@@ -43,7 +43,6 @@ pipeline {
     always {
       echo 'Stopping local server'
       sh 'pkill -f http-server'
-      sh 'sudo npm uninstall -g lambdatest-cypress-cli'
     }
   }
 }
