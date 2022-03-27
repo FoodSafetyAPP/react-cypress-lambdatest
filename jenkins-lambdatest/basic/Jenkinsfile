@@ -6,18 +6,7 @@ pipeline {
     LT_ACCESS_KEY = credentials('LT_ACCESS_KEY')
   }
 
-  options {
-    skipDefaultCheckout(true)
-  }
-
   stages {
-    stage('clean workspace & checkout repo') {
-      steps {
-        cleanWs()
-        checkout scm
-      }
-    }
-
     stage('install dependencies') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
@@ -45,7 +34,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "npm run lambdatest-cypress:run"
+        sh "npm run ci:lambdatest --build_name=${env.BRANCH_NAME}-${env.BUILD_ID}"
       }
     }
   }
