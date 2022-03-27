@@ -10,7 +10,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "lambdatest-cypress run --eof=true --bn=11"
+        sh "npx lambdatest-cypress run --eof=true --bn=11"
       }
     }
   }
