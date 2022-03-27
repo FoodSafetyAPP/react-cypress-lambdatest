@@ -34,7 +34,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "printenv"
+        sh "echo npm run ci:lambdatest --build_name=${env.BUILD_ID}"
       }
     }
   }
