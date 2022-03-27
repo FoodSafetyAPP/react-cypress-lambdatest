@@ -26,23 +26,10 @@ pipeline {
       }
     }
 
-    stage('install lambdatest cli') {
-      steps {
-        sh 'npm install -g lambdatest-cypress-cli'
-      }
-    }
-
     stage('execute E2E') {
       steps {
         sh "npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID}"
       }
-    }
-  }
-
-  post {
-    always {
-      echo 'Stopping local server'
-      sh 'pkill -f http-server'
     }
   }
 }
