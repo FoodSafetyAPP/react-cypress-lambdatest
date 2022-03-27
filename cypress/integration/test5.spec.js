@@ -8,6 +8,6 @@ describe('visit cypress', () => {
 
 describe('visit cypress', () => {
   it('visit url', () => {
-    cy.visit('https://goossgle.com');
+    cy.visit('https://google.com');
   });
 });
