@@ -1,4 +1,3 @@
-def myVariable = "foo"
 pipeline {
   agent any
 
