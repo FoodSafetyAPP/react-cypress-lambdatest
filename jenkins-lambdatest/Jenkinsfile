@@ -1,3 +1,4 @@
+def myVariable = "dsds"
 pipeline {
   agent any
 
@@ -36,7 +37,7 @@ pipeline {
     stage('execute E2E') {
       steps {
         script{
-          def myVariable = "dsds"
+          myVariable = "sdddddd"
         }
         echo "${myVariable}"
       }
