@@ -6,6 +6,8 @@ pipeline {
     LT_ACCESS_KEY = credentials('LT_ACCESS_KEY')
   }
 
+  options { skipDefaultCheckout() }
+
   stages {
     stage('Checkout repository') {
       steps {

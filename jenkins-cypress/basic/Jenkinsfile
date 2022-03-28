@@ -6,6 +6,8 @@ pipeline {
     CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
   }
 
+  options { skipDefaultCheckout() }
+
   stages {
     stage('Checkout repository') {
       steps {
