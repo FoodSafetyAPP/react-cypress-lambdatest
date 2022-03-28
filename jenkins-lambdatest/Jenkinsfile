@@ -20,16 +20,6 @@ pipeline {
       }
     }
 
-    stage('start tunnel'){
-      steps{
-        sh "wget https://s3.amazonaws.com/lambda-tunnel/LT_Linux.zip"
-        sh 'sudo apt-get install --no-act unzip'
-        sh 'unzip -o LT_Linux.zip'
-        sh "./LT -user ${env.LT_USERNAME} -key ${env.LT_ACCESS_KEY} &"
-        sh  "rm -rf LT_Linux.zip"
-      }
-    }
-
     stage('start dev server') {
       steps {
         sh 'nohup npm run start-server &'
