@@ -7,6 +7,13 @@ pipeline {
   }
 
   stages {
+    stage('Checkout repository') {
+      steps {
+        cleanWs()
+        checkout scm
+      }
+    }
+    
     stage('install dependencies') {
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
