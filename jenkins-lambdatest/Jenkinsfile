@@ -12,9 +12,9 @@ pipeline {
     stage('execute E2E') {
       steps {
         script{
-          myVariable = "sdddddd"
+          myVariable = sh(returnStdout: true, script: 'lambdatest-cypress run --eof true --bn=hhdh').trim()
         }
-        echo "${myVariable}"
+        echo "output-${myVariable}"
       }
     }
   }
