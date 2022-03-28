@@ -10,7 +10,7 @@ pipeline {
 
     stage('execute exit') {
       steps {
-       echo "${currentBuild.result}";
+       echo "${currentBuild.currentResult}";
       }
     }
   }
