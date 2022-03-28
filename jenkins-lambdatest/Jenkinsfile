@@ -35,7 +35,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        gitCommit = sh(returnStdout: true, script: 'lambdatest-cypress run --eof true --bn=${env.JOB_NAME}-${env.BUILD_ID}').trim()
+        gitCommit = sh(returnStdout: true, script: 'lambdatest-cypress run --eof true --bn=dssd').trim()
         echo "${gitCommit}"
       }
     }
