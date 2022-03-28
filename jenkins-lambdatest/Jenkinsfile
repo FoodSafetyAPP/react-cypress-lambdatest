@@ -36,10 +36,8 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        script{
-          myVariable = sh(returnStdout: true, script: 'lambdatest-cypress run --eof true --bn=dssd').trim()
-        }
-        echo "aa${myVariable}"
+        def myVariable = "dsds"
+        echo "${myVariable}"
       }
     }
   }
