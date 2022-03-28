@@ -1,4 +1,3 @@
-def myVar = 'initial_value'
 pipeline {
   agent any
 
@@ -36,11 +35,8 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID} 2>&1| tee npm.txt"
-        script {
-          myVar = readFile('npm.txt').trim()
-        }
-        echo "1.2. ${myVar}"
+        gitCommit = sh(returnStdout: true, script: 'lambdatest-cypress run --eof true --bn=${env.JOB_NAME}-${env.BUILD_ID}').trim()
+        echo "${gitCommit}"
       }
     }
   }
