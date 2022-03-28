@@ -1,3 +1,4 @@
+def myVar = 'initial_value'
 pipeline {
   agent any
 
@@ -7,18 +8,47 @@ pipeline {
   }
 
   stages {
-
-    
-
-    stage('execute exit') {
+    stage('Checkout repository') {
       steps {
-       echo "${currentBuild.currentResult}";
+        cleanWs()
+        checkout scm
       }
     }
-    stage('execute exiwt') {
+
+    stage('install dependencies') {
       steps {
-        error 'sdds'
+        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        sh 'npm ci'
       }
+    }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('start dev server') {
+      steps {
+        sh 'nohup npm run start-server &'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        sh "npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID} 2>&1| tee npm.txt"
+        script {
+          myVar = readFile('npm.txt').trim()
+        }
+        echo "1.2. ${myVar}"
+      }
+    }
+  }
+
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
     }
   }
 }
