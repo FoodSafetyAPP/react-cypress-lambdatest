@@ -7,46 +7,11 @@ pipeline {
   }
 
   stages {
-    stage('Checkout repository') {
-      steps {
-        cleanWs()
-        checkout scm
-      }
-    }
 
-    stage('install dependencies') {
+    stage('execute exit') {
       steps {
-        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        sh 'npm ci'
+       echo "${currentBuild}";
       }
-    }
-
-    stage('build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
-
-    stage('start dev server') {
-      steps {
-        sh 'nohup npm run start-server &'
-      }
-    }
-
-    stage('execute E2E') {
-      steps {
-        script{
-          def aa = sh "npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID}"
-        }
-        echo "${aa}"
-      }
-    }
-  }
-
-  post {
-    always {
-      echo 'Stopping local server'
-      sh 'pkill -f http-server'
     }
   }
 }
