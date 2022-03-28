@@ -17,4 +17,6 @@ jobs:
         with:
           name: my-artifact
           path: down
-      - run: ls
+      - run: |
+          cd down
+          ls -R
