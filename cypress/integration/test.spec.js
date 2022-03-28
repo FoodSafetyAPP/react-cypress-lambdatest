@@ -2,6 +2,6 @@
 
 describe('visit cypress', () => {
   it('visit url', () => {
-    cy.visit('https://gojogle.com');
+    cy.visit('https://sdsdsd.com/');
   });
 });
