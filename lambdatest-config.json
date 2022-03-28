@@ -16,7 +16,7 @@
       "cypress_config_file": "cypress.json",
       "build_name": "Testing2",
       "parallels": 2,
-      "specs": "./cypress/integration/test.spec.js",
+      "specs": "./cypress/integration/*.spec.js",
       "ignore_files": "",
       "feature_file_suppport": false,
       "network": false,
