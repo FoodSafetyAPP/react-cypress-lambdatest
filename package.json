@@ -17,7 +17,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "ci:lambdatest": "lambdatest-cypress run --eof=true --bn=$npm_config_build_name",
+    "ci:lambdatest": "lambdatest-cypress run --eof true --bn $npm_config_build_name --tun true",
     "start-server": "http-server ./build -p 3000",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
