@@ -9,13 +9,18 @@ pipeline {
 
   stages {
 
-    stage('execute E2E') {
-      steps {
-        script{
-          myVariable = sh(returnStdout: true, script: 'lambdatest-cypress run --eof true --bn=hhdh').trim()
+    stages {
+        stage("Using curl example") {
+            steps {
+                script {
+                    final String url = "https://jsonplaceholder.typicode.com/posts"
+
+                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+
+                    echo response
+                }
+            }
         }
-        echo "output-${myVariable}"
-      }
     }
   }
 }
