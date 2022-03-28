@@ -7,7 +7,7 @@ pipeline {
                 script {
                     def xyz = sh encoding: 'UTF-8', 
                                 returnStdout: true, 
-                                script: 'echo lambdatest-cypress run --eof true --bn dddd'
+                                script: sh (lambdatest-cypress run --eof true --bn dddd)
                     echo "xyz is ${xyz}"
                 }
             }
