@@ -39,7 +39,7 @@ pipeline {
         script{
           myVariable = sh(returnStdout: true, script: 'lambdatest-cypress run --eof true --bn=dssd').trim()
         }
-        echo "${myVariable}"
+        echo "aa${myVariable}"
       }
     }
   }
