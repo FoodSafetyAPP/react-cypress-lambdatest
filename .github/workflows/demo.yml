@@ -12,3 +12,7 @@ jobs:
         with:
           name: my-artifact
           path: demo
+      - uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+      - run: ls
