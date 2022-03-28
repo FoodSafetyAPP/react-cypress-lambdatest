@@ -5,3 +5,9 @@ describe('visit cypress', () => {
     cy.visit('https://google.com/');
   });
 });
+
+describe('visit cypress1', () => {
+  it('visit url1', () => {
+    cy.visit('https://google.com/');
+  });
+});
