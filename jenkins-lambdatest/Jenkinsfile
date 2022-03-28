@@ -9,7 +9,7 @@ pipeline {
 
   stages {
 
-    stages {
+ 
         stage("Using curl example") {
             steps {
                 script {
@@ -21,6 +21,6 @@ pipeline {
                 }
             }
         }
-    }
+    
   }
 }
