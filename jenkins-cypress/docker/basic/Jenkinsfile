@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'cypress/base:16.14.0'
+      image 'cypress/browsers:node16.14.0-slim-chrome99-ff97'
       args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
     }
   }
