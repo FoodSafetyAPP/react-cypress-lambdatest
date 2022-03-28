@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p demo
+      - run: mkdir -p down
       - run: echo hello > demo/world.txt
       - uses: actions/upload-artifact@v3
         with:
@@ -15,4 +16,5 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: my-artifact
+          path: down
       - run: ls
