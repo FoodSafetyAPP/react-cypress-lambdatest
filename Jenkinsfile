@@ -1,12 +1,16 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('install dependencies') {
-      steps {
-        sh 'node -v'
-        sh 'npm -v'
-      }
+    stages {
+        stage('Hello') {
+            steps {
+                script {
+                    def xyz = sh encoding: 'UTF-8', 
+                                returnStdout: true, 
+                                script: 'echo hello scripted world'
+                    echo "xyz is ${xyz}"
+                }
+            }
+        }
     }
-  }
 }
