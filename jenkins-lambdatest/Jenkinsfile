@@ -8,15 +8,16 @@ pipeline {
 
   stages {
 
-    stage('execute exiwt') {
-      steps {
-        error 'sdds'
-      }
-    }
+    
 
     stage('execute exit') {
       steps {
        echo "${currentBuild.currentResult}";
+      }
+    }
+    stage('execute exiwt') {
+      steps {
+        error 'sdds'
       }
     }
   }
