@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'cypress/browsers:node16.14.0-slim-chrome99-ff97'
+      image 'cypress/browsers:node16.5.0-chrome94-ff93'
       args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
     }
   }
@@ -43,13 +43,6 @@ pipeline {
       steps {
         sh "npm run e2e:record:chrome --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
       }
-    }
-  }
-
-  post {
-    always {
-      echo 'Stopping local server'
-      sh 'pkill -f http-server'
     }
   }
 }
