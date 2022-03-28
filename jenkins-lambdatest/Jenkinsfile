@@ -1,5 +1,3 @@
-def myVar = 'initial_value'
-
 pipeline {
   agent any
 
@@ -37,11 +35,8 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "echo npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID} > file.txt"
-        script {
-          myVar = readFile('file.txt').trim()
-        }
-        echo "1.2. ${myVar}" 
+        def status = sh "npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID}"
+        echo "1.2. ${status}" 
       }
     }
   }
