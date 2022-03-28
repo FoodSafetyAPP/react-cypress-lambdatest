@@ -35,7 +35,9 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        def myVariable = "dsds"
+        script{
+          def myVariable = "dsds"
+        }
         echo "${myVariable}"
       }
     }
