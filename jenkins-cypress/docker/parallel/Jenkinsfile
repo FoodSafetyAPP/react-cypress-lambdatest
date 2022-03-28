@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'cypress/base:16.14.0'
+      image 'cypress/browsers:node16.5.0-chrome94-ff93'
       args '-e HOME=/tmp -e NPM_CONFIG_PREFIX=/tmp/.npm'
     }
   }
@@ -54,13 +54,6 @@ pipeline {
           }
         }
       }
-    }
-  }
-
-  post {
-    always {
-      echo 'Stopping local server'
-      sh 'pkill -f http-server'
     }
   }
 }
