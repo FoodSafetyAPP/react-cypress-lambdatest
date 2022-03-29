@@ -9,6 +9,7 @@ pipeline {
   stages {
     stage('install dependencies') {
       steps {
+        sh "printenv"
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
       }
