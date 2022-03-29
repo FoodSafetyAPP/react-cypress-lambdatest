@@ -9,7 +9,6 @@ pipeline {
   stages {
     stage('install dependencies') {
       steps {
-        sh "printenv"
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'npm ci'
       }
@@ -35,7 +34,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "sudo -E npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID}"
+        sh "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
       }
     }
   }
