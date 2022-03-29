@@ -5,6 +5,9 @@ jobs:
   dump_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+
       - run: |
           npm install -g lambdatest-cypress-cli 
           lambdatest-cypress run --eof true --bn kjkjdskjsd 2>&1 | tee test.log
