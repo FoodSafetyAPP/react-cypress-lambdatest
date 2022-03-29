@@ -26,6 +26,12 @@ pipeline {
       }
     }
 
+    stage('install lambdatest cli') {
+      steps {
+        sh 'sudo npm i -g lambdatest-cypress-cli'
+      }
+    }
+
     stage('execute E2E') {
       steps {
         sh "sudo -E npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID}"
@@ -37,6 +43,8 @@ pipeline {
     always {
       echo 'Stopping local server'
       sh 'pkill -f http-server'
+      sh 'sudo npm uninstall -g lambdatest-cypress-cli'
+      cleanWs()
     }
   }
 }
