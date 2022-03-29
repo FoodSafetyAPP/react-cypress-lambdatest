@@ -36,7 +36,7 @@ pipeline {
       steps {
         script{
           def status = sh returnStatus: true, script: "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
-          if (status != 0) {
+          if (status === 0) {
             error 'Test execution failed...'
           }
         }
