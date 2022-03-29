@@ -13,7 +13,7 @@ jobs:
       - id: stepstatus
         run: |
           npm install -g lambdatest-cypress-cli 
-          lambdatest-cypress build-info --id 4916173 2>&1 | tee test.log
+          lambdatest-cypress run --eof true --bn testing 2>&1 | tee test.log
           echo "::set-output name=status::$(cat test.log)"
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
