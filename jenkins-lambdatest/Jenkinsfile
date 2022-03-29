@@ -28,7 +28,7 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "sudo npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID}"
+        sh "npm run ci:lambdatest --build_name=${env.JOB_NAME}-${env.BUILD_ID}"
       }
     }
   }
