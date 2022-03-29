@@ -1,22 +1,10 @@
 name: Context testing
-on: workflow_dispatch
+on: push
 
 jobs:
   dump_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: mkdir -p demo
-      - run: mkdir -p down
-      - run: echo hello > demo/world.txt
-      - uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: demo
-      - uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
-          path: down
       - run: |
-          cd down
-          ls -R
+          lambdatest-cypress run --eof true --bn kjkjdskjsd 2>&1 | tee test.log
+          echo ${PIPESTATUS[0]}
