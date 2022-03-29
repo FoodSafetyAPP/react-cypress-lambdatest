@@ -1,0 +1,60 @@
+pipeline {
+  agent any
+
+  environment {
+    CYPRESS_PROJECT_ID = credentials('CYPRESS_PROJECT_ID')
+    CYPRESS_RECORD_KEY = credentials('CYPRESS_RECORD_KEY')
+  }
+
+  stages {
+    stage('install dependencies') {
+      steps {
+        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        sh 'npm ci'
+      }
+    }
+
+    stage('verify cypress') {
+      steps {
+        sh '$(npm bin)/cypress cache path'
+        sh '$(npm bin)/cypress cache list'
+        sh '$(npm bin)/cypress verify'
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('start dev server') {
+      steps {
+        sh 'nohup npm run start-server &'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        sh "npm run e2e:record:chrome --id=${env.BUILD_ID} --name=${env.JOB_NAME}"
+      }
+    }
+  }
+
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
+      cleanWs()
+      dir("${env.WORKSPACE}@tmp") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script@tmp") {
+        deleteDir()
+      }
+    }
+  }
+}

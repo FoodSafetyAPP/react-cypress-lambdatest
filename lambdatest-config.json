@@ -10,20 +10,13 @@
          "versions": [
             "latest-1"
          ]
-      },
-      {
-         "browser": "Firefox",
-         "platform": "Windows 10",
-         "versions": [
-            "latest-1"
-         ]
       }
    ],
    "run_settings": {
       "cypress_config_file": "cypress.json",
-      "build_name": "build-name",
-      "parallels": 1,
-      "specs": "./*.spec.js",
+      "build_name": "Testing2",
+      "parallels": 2,
+      "specs": "./cypress/integration/test.spec.js",
       "ignore_files": "",
       "feature_file_suppport": false,
       "network": false,
@@ -34,7 +27,7 @@
       }
    },
    "tunnel_settings": {
-      "tunnel": false,
+      "tunnel": true,
       "tunnel_name": null
    }
 }

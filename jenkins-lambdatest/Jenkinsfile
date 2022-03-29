@@ -1,0 +1,64 @@
+pipeline {
+  agent any
+
+  environment {
+    LT_USERNAME = credentials('LT_USERNAME')
+    LT_ACCESS_KEY = credentials('LT_ACCESS_KEY')
+  }
+
+  stages {
+    stage('install dependencies') {
+      steps {
+        echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+        sh 'npm ci'
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('start dev server') {
+      steps {
+        sh 'nohup npm run start-server &'
+      }
+    }
+
+    stage('install lambdatest cli') {
+      steps {
+        sh 'sudo npm i -g lambdatest-cypress-cli'
+      }
+    }
+
+    stage('execute E2E') {
+      steps {
+        script{
+          def status = sh returnStatus: true, script: "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
+          if (status != 0) {
+            error 'Test execution failed...'
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
+      sh 'sudo npm uninstall -g lambdatest-cypress-cli'
+      cleanWs()
+      dir("${env.WORKSPACE}@tmp") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script@tmp") {
+        deleteDir()
+      }
+    }
+  }
+}

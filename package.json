@@ -17,18 +17,23 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "cypress:open": "cypress open",
+    "ci:lambdatest": "lambdatest-cypress run --eof true --bn $npm_config_build_name",
+    "start-server": "http-server ./build -p 3000",
+    "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:verify": "cypress verify",
     "cy:info": "cypress info",
     "cy:version": "cypress version",
     "cy:cache:list": "cypress cache list",
+    "e2e:record:chrome": "cypress run --record --group e2e-specs-cypress --ci-build-id $npm_config_id-$npm_config_name --browser chrome",
+    "e2e:record:chrome:parallel": "cypress run --record --group e2e-specs-cypress-parallel --ci-build-id $npm_config_id-$npm_config_name --parallel --browser chrome",
+    "e2e:record:firefox": "cypress run --record --group e2e-specs-cypress --ci-build-id $npm_config_id-$npm_config_name --browser firefox",
+    "e2e:record:firefox:parallel": "cypress run --record --group e2e-specs-cypress-parallel --ci-build-id $npm_config_id-$npm_config_name --parallel --browser firefox",
+    "e2e:record:edge": "cypress run --record --group e2e-specs-cypress --ci-build-id $npm_config_id-$npm_config_name --browser edge",
+    "e2e:record:edge:parallel": "cypress run --record --group e2e-specs-cypress-parallel --ci-build-id $npm_config_id-$npm_config_name --parallel --browser edge",
     "e2e:chrome": "cypress run --browser chrome",
-    "e2e:record": "cypress run --record",
-    "e2e:record:chrome": "cypress run --record --browser chrome",
-    "e2e:record:edge": "cypress run --record --browser edge",
-    "e2e:record:firefox": "cypress run --record --browser firefox",
-    "lambdatest-cypress:run": "lambdatest-cypress run --s ./cypress/integration/*.spec.js"
+    "e2e:firefox": "cypress run --browser firefox",
+    "e2e:edge": "cypress run --browser edge"
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +77,10 @@
   "devDependencies": {
     "cypress": "^9.5.2",
     "eslint-config-airbnb": "^19.0.4",
-    "prettier": "^2.5.1"
+    "http-server": "^14.1.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.1",
+    "serve": "^13.0.2",
+    "start-server-and-test": "^1.14.0"
   }
 }
