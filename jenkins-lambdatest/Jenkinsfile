@@ -34,8 +34,12 @@ pipeline {
 
     stage('execute E2E') {
       steps {
-        sh "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
-        sh "echo $?"
+        script {
+            def xyz = sh encoding: 'UTF-8', 
+                        returnStdout: true, 
+                        script: sh "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
+            echo "xyz is ${xyz}"
+        }
       }
     }
   }
