@@ -35,10 +35,8 @@ pipeline {
     stage('execute E2E') {
       steps {
         script{
-          def status = sh 
-              encoding: 'UTF-8', 
-              returnStatus: true, 
-              script: "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
+          def status = sh returnStatus: true, script: "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
+          echo "${status}"
           if(status !== 0){
             error 'Test execution failed...'
           }
