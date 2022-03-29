@@ -31,6 +31,7 @@ jobs:
       - run: npm install -g lambdatest-cypress-cli
       - id: testing
         run: |
+          nohup npm run start-server &
           npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}
           echo "aaaa"-$?
         env:
