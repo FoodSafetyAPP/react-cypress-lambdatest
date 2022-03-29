@@ -7,9 +7,17 @@ jobs:
     outputs:
       output1: ${{ steps.stepstatus.outputs.status }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+
       - id: stepstatus
         run: |
-          echo "::set-output name=status::$(git --version)"
+          npm install -g lambdatest-cypress-cli 
+          lambdatest-cypress run --eof true --bn testing > file-lists.txt
+          echo "::set-output name=status::$(cat file-lists.txt)"
+        env:
+          LT_USERNAME: ${{secrets.LT_USERNAME}}
+          LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
 
   job2:
     runs-on: ubuntu-latest
