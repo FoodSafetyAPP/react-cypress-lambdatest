@@ -45,6 +45,15 @@ pipeline {
       sh 'pkill -f http-server'
       sh 'sudo npm uninstall -g lambdatest-cypress-cli'
       cleanWs()
+      dir("${env.WORKSPACE}@tmp") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script") {
+        deleteDir()
+      }
+      dir("${env.WORKSPACE}@script@tmp") {
+        deleteDir()
+      }
     }
   }
 }
