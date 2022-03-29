@@ -12,3 +12,6 @@ jobs:
           npm install -g lambdatest-cypress-cli 
           lambdatest-cypress run --eof true --bn kjkjdskjsd 2>&1 | tee test.log
           echo ${PIPESTATUS[0]}
+        env:
+          LT_USERNAME: ${{secrets.LT_USERNAME}}
+          LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
