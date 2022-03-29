@@ -4,14 +4,23 @@ on: push
 jobs:
   dump_contexts_to_log:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.stepstatus.outputs.status }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.0
 
-      - run: |
+      - id: stepstatus
+        run: |
           npm install -g lambdatest-cypress-cli 
           lambdatest-cypress run --eof true --bn kjkjdskjsd 2>&1 | tee test.log
           echo "::set-output name=status::$(cat test.log)"
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: dump_contexts_to_log
+    steps:
+      - run: echo ${{needs.dump_contexts_to_log.outputs.output1}}
