@@ -36,7 +36,7 @@ pipeline {
       steps {
         script{
           def xyz = sh encoding: 'UTF-8', 
-                                returnStdout: true, 
+                                returnStatus: false, 
                                 script: "sudo -E npm run ci:lambdatest --build_name=${env.ghprbSourceBranch}-${env.ghprbTargetBranch}-${env.BUILD_ID}"
           echo "xyz is ${xyz}"
           
