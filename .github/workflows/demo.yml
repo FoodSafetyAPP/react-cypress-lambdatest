@@ -6,5 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
+          npm install -g lambdatest-cypress-cli 
           lambdatest-cypress run --eof true --bn kjkjdskjsd 2>&1 | tee test.log
           echo ${PIPESTATUS[0]}
