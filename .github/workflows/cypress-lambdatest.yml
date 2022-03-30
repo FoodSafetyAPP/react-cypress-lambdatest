@@ -33,7 +33,7 @@ jobs:
 
       - name: Execute lambdatest cli
         run: npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}
-        shell: bash -e {0}
+        shell: bash --noprofile --norc -eo pipefail {0}
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
