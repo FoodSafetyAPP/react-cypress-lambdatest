@@ -31,7 +31,7 @@ jobs:
       - run: npm install -g lambdatest-cypress-cli
       - run: nohup npm run start-server &
       - run: |
-          if ${{npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}}} == true; then
+          if npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }} == true; then
             echo "flag set to true"
           else
             echo "flag set to false"
