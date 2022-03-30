@@ -30,7 +30,14 @@ jobs:
       - run: npm run build
       - run: npm install -g lambdatest-cypress-cli
       - run: nohup npm run start-server &
-      - run: echo "::set-output name=stdout::$(npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }})"
+      - id: test
+        run: |
+          echo "::set-output name=author::$(npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }})"
+          if steps.test.outputs.author == 0; then
+              echo ankush
+          else
+              echo katiyar
+          fi
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
