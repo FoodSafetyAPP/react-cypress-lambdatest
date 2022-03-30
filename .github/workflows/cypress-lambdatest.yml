@@ -35,7 +35,6 @@ jobs:
         with:
           script: |
             const output = $(npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }})
-            echo output-"aaaaa"
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
