@@ -1,0 +1,16 @@
+name: demo integration
+on: push
+
+jobs:
+  build:
+    name: demo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node
+      - run: |
+          if echo "dd"; then
+              echo "command succeeded"
+          else
+              echo "command failed"
+          fi
