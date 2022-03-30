@@ -30,10 +30,7 @@ jobs:
       - run: npm run build
       - run: npm install -g lambdatest-cypress-cli
       - run: nohup npm run start-server &
-
-      - name: Execute lambdatest cli
-        run: npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}
-        shell: bash --noprofile --norc -eo pipefail {0}
+      - run: ./test.sh
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
