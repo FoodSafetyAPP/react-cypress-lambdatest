@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Setup Node
         run: |
-          if echo "dd"; then
+          if npm --version; then
               echo "command succeeded"
           else
               echo "command failed"
