@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Setup Node
-      - run: |
+        run: |
           if echo "dd"; then
               echo "command succeeded"
           else
