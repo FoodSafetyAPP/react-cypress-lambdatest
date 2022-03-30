@@ -30,13 +30,12 @@ jobs:
       - run: npm run build
       - run: npm install -g lambdatest-cypress-cli
       - run: nohup npm run start-server &
-      - uses: actions/github-script@v6
-        id: my-script
-        with:
-          result-encoding: string
-          script: npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}
+      - run: |
+          if ${{npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}}} == true; then
+            echo "flag set to true"
+          else
+            echo "flag set to false"
+          fi
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
           LT_ACCESS_KEY: ${{secrets.LT_ACCESS_KEY}}
-      - name: Get result
-        run: echo "aaa-${{steps.my-script.outputs.result}}"
