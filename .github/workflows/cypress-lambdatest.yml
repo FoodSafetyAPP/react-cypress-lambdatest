@@ -34,9 +34,9 @@ jobs:
         run: |
           echo "::set-output name=author::$(npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }})"
           if steps.test.outputs.author == 0; then
-              echo ankush
+              exit 1;
           else
-              echo katiyar
+              exit 1;
           fi
         env:
           LT_USERNAME: ${{secrets.LT_USERNAME}}
