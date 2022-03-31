@@ -1,5 +1,9 @@
 name: demo integration
-on: workflow_dispatch
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - 'develop'
 
 jobs:
   build:
@@ -8,4 +12,4 @@ jobs:
 
     steps:
       - name: Execute lambdatest cli
-        run: echo "sdds"
+        run: npm jhjdjh
