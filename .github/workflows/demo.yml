@@ -8,9 +8,5 @@ jobs:
 
     steps:
       - name: Execute lambdatest cli
-        run: |
-          if [ npm --version -ne 0 ]; then
-              echo "command failed"-$?
-          else
-              echo "command success"-$?
-          fi
+      - run: npm --version
+      - run: echo $?
