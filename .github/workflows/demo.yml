@@ -9,8 +9,7 @@ jobs:
     steps:
       - name: Execute lambdatest cli
         run: |
-          if [ ${{npm --version}} -ne 0 ]; then
-              echo "command failed"-$?
-          else
-              echo "command success"-$?
-          fi
+          npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}  
+          if [ $? -ne 0 ]; then
+            echo "command failed"-$?
+            exit 1;
