@@ -1,6 +1,9 @@
 name: Lambdatest cypress integration
-on: workflow_dispatch
-
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - 'develop'
 jobs:
   build:
     name: E2E on Node v${{ matrix.node }}
