@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Execute lambdatest cli
         run: |
-          npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}  
+          npm run ci:lambdatest --build_name="jsdhdh"
           if [ $? -ne 0 ]; then
             echo "command failed"-$?
             exit 1;
