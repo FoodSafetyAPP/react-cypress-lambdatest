@@ -1,5 +1,5 @@
 name: demo integration
-on: workflow_dispatch
+on: push
 
 jobs:
   build:
@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Setup Node
+      - name: Execute lambdatest cli
         run: |
-          if npm --version; then
-              echo "command succeeded"
+          if [ npm --version -ne 0 ]; then
+              echo "command failed"-$?
           else
-              echo "command failed"
+              echo "command success"-$?
           fi
