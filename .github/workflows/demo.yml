@@ -8,10 +8,4 @@ jobs:
 
     steps:
       - name: Execute lambdatest cli
-        run: |
-          npm run ci:lambdatest --build_name="jsdhdh"
-          if [ $? -ne 0 ]; then
-            echo "command failed"-$?
-          else
-              echo "command success"-$?
-          fi
+        run: echo "sdds"
