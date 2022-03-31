@@ -33,7 +33,7 @@ jobs:
 
       - name: Execute lambdatest cli
         run: |
-          if [ "npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }}" -ne 0 ]; then
+          if [ npm run ci:lambdatest --build_name=${{ github.head_ref }}-${{ github.run_id }} -ne 0 ]; then
               echo "command failed"-$?
           else
               echo "command success"-$?
