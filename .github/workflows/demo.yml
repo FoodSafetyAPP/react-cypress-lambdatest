@@ -13,3 +13,4 @@ jobs:
           if [ $? -ne 0 ]; then
             echo "command failed"-$?
             exit 1;
+          fi
